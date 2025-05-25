@@ -71,25 +71,27 @@ watch(group, () => {
       ></v-btn>
     </template>
   </v-app-bar>
-  <v-navigation-drawer
-    class="navigation-bar__mobile"
-    v-model="drawer"
-    location="end"
-    color="black"
-    temporary
-    app
-  >
-    <v-list nav dense>
-      <v-list-item
-        v-for="item in items"
-        :key="item.value"
-        link
-        :prepend-icon="item.icon"
-        :title="item.title"
-        @click="drawer = false"
-      />
-    </v-list>
-  </v-navigation-drawer>
+  <client-only>
+    <v-navigation-drawer
+      class="navigation-bar__mobile"
+      v-model="drawer"
+      location="end"
+      color="black"
+      temporary
+      app
+    >
+      <v-list nav dense>
+        <v-list-item
+          v-for="item in items"
+          :key="item.value"
+          link
+          :prepend-icon="item.icon"
+          :title="item.title"
+          @click="drawer = false"
+        />
+      </v-list>
+    </v-navigation-drawer>
+  </client-only>
 </template>
 
 <style scoped>
