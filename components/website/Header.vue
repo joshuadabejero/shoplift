@@ -122,6 +122,7 @@ watch(group, () => {
   text-transform: none !important;
 }
 
+.navigation-bar__mobile ::v-deep(.v-list-item:hover),
 .navigation-bar ::v-deep(.v-btn:hover) {
   color: #eab308;
 }
@@ -131,8 +132,7 @@ watch(group, () => {
   display: none !important;
   pointer-events: none !important;
 }
-
-.navigation-bar__mobile ::v-deep(.v-list-item:hover) {
-  color: #eab308;
+.navigation-bar ::v-deep(.v-toolbar__prepend) {
+  margin-inline: 0 auto;
 }
 </style>
