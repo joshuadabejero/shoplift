@@ -4,12 +4,12 @@ import { ref, watch } from "vue";
 const items = [
   {
     title: "Home",
-    value: "home",
+    value: "/",
     icon: "mdi-home",
   },
   {
     title: "Products",
-    value: "products",
+    value: "/products",
     icon: "mdi-package-variant-closed",
   },
   {
@@ -45,14 +45,13 @@ watch(group, () => {
     </template>
 
     <div class="d-sm-flex d-none">
-      <v-btn :ripple="false">Home</v-btn>
-      <v-btn :ripple="false">Products</v-btn>
+      <v-btn :ripple="false" to="/">Home</v-btn>
+      <v-btn :ripple="false" to="/products">Products</v-btn>
       <v-btn :ripple="false">Categories</v-btn>
     </div>
 
     <template v-slot:append>
       <v-btn
-        to="/"
         class="d-sm-flex d-none"
         icon="mdi-magnify"
         :ripple="false"
