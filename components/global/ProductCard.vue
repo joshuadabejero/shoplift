@@ -20,17 +20,24 @@ defineEmits(["add-to-cart"]);
 <template>
   <v-card class="product-card rounded-lg" max-width="400" color="#1f2937">
     <div class="product-card__image--container">
-      <v-img
-        class="product-card__image align-end text-white"
-        height="200"
-        :src="image"
-        cover
-      >
-      </v-img>
+      <NuxtLink class="image-link" :to="`/products/${id}`">
+        <v-img
+          class="product-card__image align-end text-white"
+          height="200"
+          :src="image"
+          cover
+        >
+        </v-img>
+      </NuxtLink>
     </div>
 
     <div class="product-card__text">
-      <v-card-title class="pa-0 mb-3">{{ title }}</v-card-title>
+      <v-card-title class="pa-0 mb-3"
+        ><NuxtLink class="text-link" :to="`/products/${id}`">{{
+          title
+        }}</NuxtLink></v-card-title
+      >
+
       <v-card-text class="d-flex pa-0 mb-4">
         <div>
           <v-icon icon="mdi-star" size="small" color="#eab308"></v-icon>
@@ -59,6 +66,15 @@ defineEmits(["add-to-cart"]);
 
 <style scoped>
 /* Custom Styles */
+.text-link {
+  color: white;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  color: #eab308;
+}
+
 .product-card__image--container {
   background-color: #fff;
 }
@@ -84,6 +100,18 @@ defineEmits(["add-to-cart"]);
   font-size: 1.25rem;
   line-height: 1.75rem;
   color: #eab308;
+}
+
+.v-card {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+}
+
+.v-card:hover {
+  transform: translate(0, -0.25rem) rotate(0deg) skew(0deg, 0deg) scale(1, 1);
+  box-shadow: 0 0 0 0 transparent, 0 0 0 0 transparent,
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
 /* Component Overrides */
