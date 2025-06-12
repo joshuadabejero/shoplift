@@ -10,9 +10,19 @@ const { data: product } = await useFetch(
 <template>
   <div class="product__section">
     <div class="product__container">
-      <div class="product__button--wrapper">
-        <v-btn class="product__button" prepend-icon="mdi-arrow-left"
-          >Back to Products</v-btn
+      <div class="product__button--wrapper d-flex">
+        <v-btn
+          class="product__button"
+          :ripple="false"
+          variant="text"
+          color="#9CA3AF"
+          size="medium"
+          to="../products"
+        >
+          <template #prepend>
+            <v-icon class="me-2">mdi-arrow-left</v-icon>
+          </template>
+          Back to Products</v-btn
         >
       </div>
       <div class="product__wrapper--background">
@@ -34,9 +44,11 @@ const { data: product } = await useFetch(
                 density="compact"
                 style="margin-right: 0.75rem; margin-bottom: 3px"
               ></v-rating>
-              <p>( {{ product.rating.count }} reviews)</p>
+              <p>( {{ product.rating.count }} reviews )</p>
             </div>
-            <div class="product__price text-white">${{ product.price }}</div>
+            <div class="product__price text-white">
+              ${{ product.price.toFixed(2) }}
+            </div>
             <p class="product__description">
               {{ product.description }}
             </p>
@@ -151,7 +163,25 @@ const { data: product } = await useFetch(
   font-size: 14px;
 }
 
+.product__button--wrapper {
+  margin-bottom: 1.5rem;
+}
+
 /* Component Overrides */
+.product__button--wrapper ::v-deep(.v-btn) {
+  text-transform: none !important;
+}
+
+.product__button--wrapper ::v-deep(.v-btn:hover) {
+  color: #eab308 !important;
+}
+
+.product__button--wrapper ::v-deep(.v-btn__overlay),
+.product__button--wrapper ::v-deep(.v-btn__underlay) {
+  display: none !important;
+  pointer-events: none !important;
+}
+
 .product__image ::v-deep(.v-img) {
   max-height: 400px;
   max-width: 100%;
