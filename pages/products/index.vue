@@ -122,19 +122,14 @@ const filteredProducts = computed(() => {
           sm="6"
           md="4"
           lg="3"
-          ><router-link
-            :to="`/products/${product.id}`"
-            class="text-decoration-none"
-            style="display: block"
-          >
-            <ProductCard
-              :id="product.id"
-              :title="product.title"
-              :price="product.price"
-              :image="product.image"
-              :rating="product.rating"
-            />
-          </router-link>
+        >
+          <ProductCard
+            :id="product.id"
+            :title="product.title"
+            :price="product.price"
+            :image="product.image"
+            :rating="product.rating"
+          />
         </v-col>
       </v-row>
     </div>
