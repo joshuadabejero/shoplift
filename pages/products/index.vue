@@ -1,9 +1,14 @@
 <script setup>
 import ProductCard from "~/components/global/ProductCard.vue";
 import { ref } from "vue";
+import { useProductStore } from "~/store/productStore";
+const productStore = useProductStore();
 
-const { categories, loading: loadingCategories } = useCategories();
-const { products, loading, error, fetchProducts } = useCategoryProducts();
+onMounted(async () => {
+  await productStore.loadProducts();
+  await productStore.loadCategory();
+  await productStore.loadProductsByCategory(selectedCategory.value);
+});
 
 const selectedCategory = ref("all");
 
@@ -12,19 +17,15 @@ const toggleFilters = () => {
   showFilters.value = !showFilters.value;
 };
 
-watch(selectedCategory, (newCategory) => {
-  fetchProducts(newCategory);
-});
-
-onMounted(() => {
-  fetchProducts(selectedCategory.value);
+watch(selectedCategory, async (newCategory) => {
+  await productStore.loadProductsByCategory(newCategory);
 });
 
 const sortOption = ref("default");
 const sortedProducts = computed(() => {
-  if (!products.value) return [];
+  if (!productStore.products) return [];
 
-  const sorted = [...products.value];
+  const sorted = [...productStore.products];
 
   switch (sortOption.value) {
     case "price-asc":
@@ -104,9 +105,13 @@ const filteredProducts = computed(() => {
         <h3 class="mb-4">Categories</h3>
         <div class="products__categories--wrapper">
           <v-btn
-            v-for="category in categories"
+            v-for="category in productStore.categories"
             :key="category"
-            :class="selectedCategory === category ? 'selectedCategory' : ''"
+            :class="
+              selectedCategory === productStore.categories
+                ? 'selectedCategory'
+                : ''
+            "
             rounded
             :ripple="false"
             @click="selectedCategory = category"

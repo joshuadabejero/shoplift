@@ -1,6 +1,12 @@
 <script setup>
 import ProductCard from "~/components/global/ProductCard.vue";
-const { products } = useProducts(4);
+import { useProductStore } from "~/store/productStore";
+const productStore = useProductStore();
+
+onMounted(async () => {
+  await productStore.loadFeaturedProducts(0, 4);
+  await productStore.loadNewArrivalProducts(4, 4);
+});
 
 const items = [
   {
@@ -71,7 +77,7 @@ const items = [
       <div class="products__container">
         <v-row>
           <v-col
-            v-for="product in products"
+            v-for="product in productStore.featuredProducts"
             :key="product.id"
             cols="12"
             sm="6"
@@ -119,7 +125,7 @@ const items = [
       <div class="products__container">
         <v-row>
           <v-col
-            v-for="product in products"
+            v-for="product in productStore.newArrivalProducts"
             :key="product.id"
             cols="12"
             sm="6"
