@@ -95,7 +95,7 @@ const showEditDialog = ref(false);
             @click="showAddDialog = true"
             >Add Product</v-btn
           >
-          <CRUDDialog v-model="showAddDialog" />
+          <CRUDDialog :action="false" v-model="showAddDialog" />
         </div>
       </div>
       <div class="products__controls">

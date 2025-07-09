@@ -61,7 +61,7 @@ const submit = () => {
     productStore.editProduct(form.value.id, form.value);
     close();
   } else {
-    productStore.addProduct(form);
+    productStore.addProduct(form.value);
     close();
   }
 };
@@ -72,15 +72,17 @@ const deleteProduct = () => {
 };
 
 onMounted(() => {
-  form.value = {
-    id: props.id!,
-    title: props.title!,
-    price: props.price!,
-    description: props.description!,
-    category: props.category!,
-    image: props.image!,
-    rating: props.rating as { rate: number; count: number },
-  };
+  if (props.action == true) {
+    form.value = {
+      id: props.id!,
+      title: props.title!,
+      price: props.price!,
+      description: props.description!,
+      category: props.category!,
+      image: props.image!,
+      rating: props.rating as { rate: number; count: number },
+    };
+  }
 });
 
 watch(
