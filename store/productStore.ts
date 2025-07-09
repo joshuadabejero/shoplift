@@ -2,15 +2,25 @@ import { defineStore } from "pinia";
 import type { Product } from "~/shared/types/product";
 
 export const useProductStore = defineStore("products", () => {
-  const { fetchProducts, fetchCategories, fetchByCategory } = useFakeStoreApi();
+  const {
+    fetchProducts,
+    fetchCategories,
+    fetchProductById,
+    fetchByCategory,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+  } = useFakeStoreApi();
 
   const products = ref<Product[]>([]);
+  const product = ref<Product | null>(null);
   const loading = ref(false);
   const error = ref<Error | null>(null);
   const featuredProducts = ref<Product[]>([]);
   const newArrivalProducts = ref<Product[]>([]);
   const categories = ref<String[]>([]);
   const selectedCategory = ref("all");
+  const selectedProduct = ref<Product | null>(null);
 
   const loadProducts = async (limit?: number) => {
     loading.value = true;
@@ -21,6 +31,20 @@ export const useProductStore = defineStore("products", () => {
       products.value = limit
         ? (data as Product[]).slice(0, limit)
         : (data as Product[]);
+    } catch (err: any) {
+      error.value = err.message || "Something went wrong.";
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const loadProductById = async (id: number) => {
+    loading.value = true;
+    error.value = null;
+
+    try {
+      const data = await fetchProductById(id);
+      product.value = data as Product;
     } catch (err: any) {
       error.value = err.message || "Something went wrong.";
     } finally {
@@ -86,18 +110,57 @@ export const useProductStore = defineStore("products", () => {
     }
   };
 
+  const addProduct = async (product: any) => {
+    const id = (await createProduct(product)) as Product;
+    const newProduct = { ...id, ...product.value };
+    products.value.push(newProduct);
+  };
+
+  const getProductById = (id: number): Product | undefined =>
+    products.value.find((p) => p.id === id);
+
+  const editProduct = async (id: number, updated: any) => {
+    const data = (await updateProduct(id, updated)) as Product;
+    const result = {
+      ...data,
+      rating: {
+        // since data from API does not provide rating{}, it was manually merged from store - Joshua
+        ...updated.rating,
+      },
+    };
+    const idx = products.value.findIndex((p) => p.id === id);
+    if (idx > -1) products.value[idx] = result;
+  };
+
+  const removeProduct = async (id: number) => {
+    await deleteProduct(id);
+    products.value = products.value.filter((p) => p.id !== id);
+  };
+
+  const setSelectedProduct = (product: any) => {
+    selectedProduct.value = product;
+  };
+
   return {
     products,
+    product,
     loading,
     error,
     featuredProducts,
     newArrivalProducts,
     categories,
     selectedCategory,
+    selectedProduct,
     loadProducts,
+    loadProductById,
     loadFeaturedProducts,
     loadNewArrivalProducts,
     loadCategory,
     loadProductsByCategory,
+    addProduct,
+    getProductById,
+    editProduct,
+    removeProduct,
+    setSelectedProduct,
   };
 });
