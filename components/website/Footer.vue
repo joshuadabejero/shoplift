@@ -16,11 +16,11 @@ const quickLinks = {
     },
     {
       name: "Products",
-      to: "/",
+      to: "/products",
     },
     {
-      name: "Categories",
-      to: "/",
+      name: "CRUD",
+      to: "/crud",
     },
   ],
 };
@@ -102,6 +102,7 @@ const contactUs = {
             :key="link.name"
             :ripple="false"
             link
+            :to="link.to"
             :title="link.name"
           />
         </v-list>

@@ -40,10 +40,15 @@ const items = [
           satisfaction is our priority.
         </p>
         <div class="hero-content__button--container">
-          <v-btn color="#eab308" size="large"
+          <v-btn color="#eab308" size="large" to="/products"
             >Shop Now <v-icon>mdi-arrow-right</v-icon></v-btn
           >
-          <v-btn variant="outlined" color="white" size="large" :ripple="false"
+          <v-btn
+            variant="outlined"
+            color="white"
+            size="large"
+            :ripple="false"
+            to="/products"
             >View Collection</v-btn
           >
         </div>
@@ -104,7 +109,11 @@ const items = [
         Discover our exclusive collection with special discounts. Limited time
         offers on selected items.
       </p>
-      <v-btn class="special-offer__button" :ripple="false" color="#eab308"
+      <v-btn
+        class="special-offer__button"
+        :ripple="false"
+        color="#eab308"
+        to="/products"
         >Shop Now</v-btn
       >
     </div>
