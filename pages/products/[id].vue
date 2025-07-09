@@ -1,15 +1,30 @@
 <script setup>
+import { useProductStore } from "~/store/productStore";
 const route = useRoute();
 const productId = route.params.id;
+const productStore = useProductStore();
+productStore.product = null;
 
-const { data: product } = await useFetch(
-  `https://fakestoreapi.com/products/${productId}`
-);
+onMounted(() => {
+  productStore.loadProductById(productId);
+});
 </script>
 
 <template>
   <div class="product__section">
-    <div class="product__container">
+    <div
+      v-if="productStore.loading"
+      class="d-flex align-center justify-center"
+      style="height: 100vh"
+    >
+      <v-progress-circular
+        color="#EAB308"
+        indeterminate
+        :size="128"
+        :width="12"
+      />
+    </div>
+    <div v-else class="product__container">
       <div class="product__button--wrapper d-flex">
         <v-btn
           class="product__button"
@@ -28,29 +43,31 @@ const { data: product } = await useFetch(
       <div class="product__wrapper--background">
         <div class="product__wrapper">
           <div class="product__image">
-            <v-img :src="product.image" width="400px"></v-img>
+            <v-img :src="productStore.product?.image" width="400px"></v-img>
           </div>
           <div class="product__data">
-            <div class="product__category">Men's clothing</div>
+            <div class="product__category">
+              {{ productStore.product?.category }}
+            </div>
             <h1 class="product__title text-white">
-              {{ product.title }}
+              {{ productStore.product?.title }}
             </h1>
             <div class="product__ratings d-flex">
               <v-rating
-                :model-value="product.rating.rate"
+                :model-value="productStore.product?.rating.rate"
                 readonly
                 color="amber"
                 size="small"
                 density="compact"
                 style="margin-right: 0.75rem; margin-bottom: 3px"
               ></v-rating>
-              <p>( {{ product.rating.count }} reviews )</p>
+              <p>( {{ productStore.product?.rating.count }} reviews )</p>
             </div>
             <div class="product__price text-white">
-              ${{ product.price.toFixed(2) }}
+              ${{ productStore.product?.price.toFixed(2) }}
             </div>
             <p class="product__description">
-              {{ product.description }}
+              {{ productStore.product?.description }}
             </p>
             <div class="product__tagline">
               <div class="d-flex">
@@ -113,6 +130,7 @@ const { data: product } = await useFetch(
   font-weight: 500;
   margin-bottom: 0.5rem;
   color: #eab308;
+  text-transform: capitalize;
 }
 
 .product__title {
