@@ -1,4 +1,0 @@
-const Header_vue_vue_type_style_index_0_scoped_4546cf3a_lang = ".icon__container[data-v-4546cf3a]{background-color:#eab308;border-radius:6px;margin-right:8px;padding:8px}.navigation__title[data-v-4546cf3a]{color:#eab308;font-size:24px;font-weight:700;line-height:28px}.navigation-bar[data-v-4546cf3a]>.v-toolbar__content{height:72px!important;margin:0 auto;max-width:1280px;padding:0 16px}.navigation-bar[data-v-4546cf3a] .v-btn{text-transform:none!important}.navigation-bar[data-v-4546cf3a] .v-btn:hover,.navigation-bar__mobile[data-v-4546cf3a] .v-list-item:hover{color:#eab308}.navigation-bar[data-v-4546cf3a] .v-btn__overlay,.navigation-bar[data-v-4546cf3a] .v-btn__underlay{display:none!important;pointer-events:none!important}.navigation-bar[data-v-4546cf3a] .v-toolbar__prepend{margin-inline:0 auto}";
-
-export { Header_vue_vue_type_style_index_0_scoped_4546cf3a_lang as H };
-//# sourceMappingURL=Header-styles-1.mjs-tSkGSKNY.mjs.map

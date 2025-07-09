@@ -1,9 +1,0 @@
-[build]
-  command = "yarn build"
-  publish = ".output/public"
-
-[functions]
-  directory = ".netlify/functions"
-
-[build.environment]
-  NODE_VERSION = "18.20.8"
