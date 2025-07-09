@@ -1,6 +1,6 @@
 # 🛍️ ShopLift - Nuxt 3 + Pinia + FakeStore
 
-![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_SITE_ID_HERE/deploy-status)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/920917b5-2314-4106-8e3c-65bf245cd7c7/deploy-status)](https://app.netlify.com/projects/joshuadabejero-shoplift/deploys)
 
 **ShopLift** is a simple demo e-commerce frontend built with Nuxt 3, using Pinia for state management and FakeStoreAPI as the mock backend.
 
