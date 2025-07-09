@@ -1,5 +1,5 @@
-<script setup>
-defineProps({
+<script lang="ts" setup>
+const props = defineProps({
   id: Number,
   title: String,
   price: Number,
@@ -9,22 +9,43 @@ defineProps({
   rating: {
     type: Object,
     required: false,
-    rate: Number,
-    count: Number,
+    default: () => ({
+      rate: 0,
+      count: 0,
+    }),
+  },
+  editMode: {
+    type: Boolean,
+    default: false,
   },
 });
 
-defineEmits(["add-to-cart"]);
+const emit = defineEmits(["open-dialog"]);
+
+const emitProduct = () => {
+  emit("open-dialog", {
+    id: props.id,
+    title: props.title,
+    price: props.price,
+    description: props.description,
+    category: props.category,
+    image: props.image,
+    rating: {
+      rate: props.rating?.rate,
+      count: props.rating?.count,
+    },
+  });
+};
 </script>
 
 <template>
   <v-card class="product-card rounded-lg" max-width="400" color="#1f2937">
     <div class="product-card__image--container">
-      <NuxtLink class="image-link" :to="`/products/${id}`">
+      <NuxtLink class="image-link" :to="`/products/${props.id}`">
         <v-img
           class="product-card__image align-end text-white"
           height="200"
-          :src="image"
+          :src="props.image"
           cover
         >
         </v-img>
@@ -33,26 +54,36 @@ defineEmits(["add-to-cart"]);
 
     <div class="product-card__text">
       <v-card-title class="pa-0 mb-3"
-        ><NuxtLink class="text-link" :to="`/products/${id}`">{{
-          title
+        ><NuxtLink class="text-link" :to="`/products/${props.id}`">{{
+          props.title
         }}</NuxtLink></v-card-title
       >
 
       <v-card-text class="d-flex pa-0 mb-4">
         <div>
           <v-icon icon="mdi-star" size="small" color="#eab308"></v-icon>
-          <span class="product-card__rate"> {{ rating.rate }}</span>
+          <span class="product-card__rate"> {{ props.rating?.rate }}</span>
         </div>
         <div class="product-card__reviews-count ml-2">
-          ({{ rating.count }} reviews)
+          ({{ props.rating?.count }} reviews)
         </div>
       </v-card-text>
 
       <div
         class="product-card__action d-flex align-center justify-space-between pa-0"
       >
-        <h4 class="product-card__price">${{ price }}</h4>
+        <h4 class="product-card__price">${{ props.price }}</h4>
         <v-btn
+          v-if="editMode"
+          class="btn-add_to_cart"
+          prepend-icon="mdi-file-edit-outline"
+          color="#eab308"
+          text="Edit"
+          :ripple="false"
+          @click="emitProduct"
+        ></v-btn>
+        <v-btn
+          v-else
           class="btn-add_to_cart"
           prepend-icon="mdi-cart-outline"
           color="#eab308"
