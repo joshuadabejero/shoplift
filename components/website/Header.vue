@@ -13,14 +13,9 @@ const items = [
     icon: "mdi-package-variant-closed",
   },
   {
-    title: "Categories",
-    value: "categories",
+    title: "CRUD",
+    value: "/crud",
     icon: "mdi-list-box-outline",
-  },
-  {
-    title: "Cart",
-    value: "cart",
-    icon: "mdi-cart-outline",
   },
 ];
 
@@ -47,7 +42,7 @@ watch(group, () => {
     <div class="d-sm-flex d-none">
       <v-btn :ripple="false" to="/">Home</v-btn>
       <v-btn :ripple="false" to="/products">Products</v-btn>
-      <v-btn :ripple="false">Categories</v-btn>
+      <v-btn :ripple="false" to="/crud">CRUD</v-btn>
     </div>
 
     <template v-slot:append>
@@ -86,6 +81,7 @@ watch(group, () => {
           link
           :prepend-icon="item.icon"
           :title="item.title"
+          :to="item.value"
           @click="drawer = false"
         />
       </v-list>
