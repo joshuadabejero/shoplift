@@ -70,7 +70,6 @@ const items = [
     <div class="featured-products__container">
       <div class="featured-products-section__title">
         <h2>Featured Products</h2>
-
         <v-btn
           append-icon="mdi-arrow-right"
           color="#eab308"
@@ -408,7 +407,7 @@ const items = [
 }
 
 /* Responsive Styling */
-@media (max-width: 424px) {
+@media (max-width: 400px) {
   .hero-content__button--container {
     display: block;
   }
