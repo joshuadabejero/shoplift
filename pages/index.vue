@@ -407,9 +407,9 @@ const items = [
 }
 
 /* Responsive Styling */
-@media (max-width: 400px) {
+@media (max-width: 389px) {
   .hero-content__button--container {
-    display: block;
+    display: block !important;
   }
 
   .hero-content__button--container ::v-deep(.v-btn:last-of-type) {
